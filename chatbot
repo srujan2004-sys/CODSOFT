@@ -1,0 +1,43 @@
+class RuleBasedChatbot:
+    def __init__(self, name="Eliza"):
+        self.name = name
+        self.greetings = ["hello", "hi", "hey", "greetings"]
+        self.goodbyes = ["bye", "see you", "exit", "quit"]
+        self.introductions = ["who are you", "what's your name"]
+
+    def respond(self, user_input):
+        user_input = user_input.lower()
+        
+        # Greetings
+        if any(greet in user_input for greet in self.greetings):
+            return f"Hello! Nice to meet you. I'm {self.name}, your chatbot today."
+        
+        # Goodbyes
+        elif any(bye in user_input for bye in self.goodbyes):
+            return "See you soon! It was nice chatting with you."
+        
+        # Introductions
+        elif any(intro in user_input for intro in self.introductions):
+            return f"I'm {self.name}, a simple rule-based chatbot designed to assist with basic queries."
+        
+        # Specific Questions
+        elif "how are you" in user_input:
+            return "I'm doing well, thank you for asking! How can I assist you today?"
+        
+        # Default Response
+        else:
+            return "I didn't quite understand that. Could you please rephrase or ask something else?"
+
+    def chat(self):
+        print(f"Welcome to chat with {self.name}! Type 'exit' to quit.")
+        while True:
+            user_input = input("You: ")
+            if user_input.lower() in self.goodbyes:
+                print(self.respond(user_input))
+                break
+            else:
+                print(f"{self.name}: {self.respond(user_input)}")
+
+if __name__ == "__main__":
+    chatbot = RuleBasedChatbot()
+    chatbot.chat()
